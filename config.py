@@ -1,27 +1,49 @@
-# config.py
+class SettingsManager:
+    def __init__(self, settings):
+        self.settings = settings
 
-# Constants
-DEFAULT_SETTING = 'default'
-API_URL = 'https://api.example.com'
-
-# Configuration Settings Management
-class Configuration:
-    def __init__(self):
-        self.settings = {
-            'setting1': DEFAULT_SETTING,
-            'setting2': 42,
-            'setting3': True
-        }
+    def get_setting(self, key):
+        return self.settings.get(key)
 
     def set_setting(self, key, value):
         self.settings[key] = value
 
-    def get_setting(self, key):
-        return self.settings.get(key, None)
+    def load_from_file(self, file_path):
+        # Logic to load settings from a file
+        pass
 
-# Example usage
-if __name__ == '__main__':
-    config = Configuration()
-    print(config.get_setting('setting1'))
-    config.set_setting('setting1', 'new_value')
-    print(config.get_setting('setting1'))
+    def save_to_file(self, file_path):
+        # Logic to save settings to a file
+        pass
+
+
+class EmailConfigManager:
+    def __init__(self, smtp_server, port, sender_email, password):
+        self.smtp_server = smtp_server
+        self.port = port
+        self.sender_email = sender_email
+        self.password = password
+
+    def send_email(self, recipient_email, subject, body):
+        # Logic for sending an email
+        pass
+
+    def validate_email(self):
+        # Logic for validating email configuration
+        pass
+
+
+if __name__ == "__main__":
+    settings = {
+        'debug': True,
+        'smtp_server': 'smtp.example.com',
+        'smtp_port': 587,
+        'sender_email': 'user@example.com',
+        'email_password': 'password123'
+    }
+    
+    settings_manager = SettingsManager(settings)
+    email_manager = EmailConfigManager(settings_manager.get_setting('smtp_server'),
+                                       settings_manager.get_setting('smtp_port'),
+                                       settings_manager.get_setting('sender_email'),
+                                       settings_manager.get_setting('email_password'))
